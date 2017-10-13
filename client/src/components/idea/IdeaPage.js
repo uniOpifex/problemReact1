@@ -32,14 +32,63 @@ class IdeaPage extends Component {
     this.setState({user: res.data})
   }
 
+  // TODO: Create New Idea when clicking a button
+  // Create a Post for Idea
+  // Create onClick that creates an empty Post
+  createNewIdea = async () => {
+    const { userId } = this.props.match.params
+    const res = await axios.post(`/api/users/${userId}/ideas`)
+    console.log(res.data)
+    this.setState({user: res.data})
+  }
+
+  // TODO: Delete existing idea when clicking a button
+  // Create a Delete for Idea
+  // Create onClick that deletes a post
+  deleteIdea = async (ideaId) => {
+    const { userId } = this.props.match.params
+    const id = ideaId
+    const res = await axios.delete(`/api/users/${userId}/ideas/${id}`)
+    this.setState({user: res.data})
+  }
+
+  // TODO: Update an idea when a user edits the field
+  // Create a Patch for idea
+  // Add onChange listener for title and description
+  handleChange = (event, ideaId) => {
+    const attribute = event.target.name
+    const clonedUser = {...this.state.user}
+    const idea = clonedUser.ideas.find(i => i._id === ideaId)
+    console.log(idea)
+    idea[attribute] = event.target.value
+    this.setState({user: clonedUser})
+  }
+  // Trigger patch when leaving an input field
+  updateIdea = async (ideaId) => {
+    const { userId } = this.props.match.params
+    const id = ideaId
+
+    const clonedUser = {...this.state.user}
+    const idea = clonedUser.ideas.find(i => i._id === ideaId)
+
+    const res = await axios.patch(`/api/users/${userId}/ideas/${id}`, {
+      idea: idea
+    })
+    this.setState({user: res.data})
+  }
+
   render () {
     return (
       <div>
         <IdeaTitleStyle>
           <h1>{this.state.user.userName}'s Idea Board</h1>
-          <button>New Idea</button>
+          <button onClick={this.createNewIdea}>New Idea</button>
         </IdeaTitleStyle>
-        <IdeasList ideas={this.state.user.ideas} />
+        <IdeasList ideas={this.state.user.ideas}
+          handleChange={this.handleChange}
+          deleteIdea={this.deleteIdea}
+          updateIdea={this.updateIdea}
+        />
       </div>
     )
   }

@@ -23,11 +23,23 @@ const IdeaStyles = styled.div`
 `
 
 const Idea = (props) => {
+  const deleteIdea = () => {
+    props.deleteIdea(props._id)
+  }
+
+  const handleChange = (event) => {
+    props.handleChange(event, props._id)
+  }
+  const updateIdea = () => {
+    props.updateIdea(props._id)
+    console.log('UPDATING')
+  }
+
   return (
     <IdeaStyles>
-      <input name="title" value={props.title} />
-      <textarea name="description" value={props.description}/>
-      <button>Delete Idea</button>
+      <input onBlur={updateIdea} onChange={handleChange} name="title" value={props.title} />
+      <textarea onBlur={updateIdea} onChange={handleChange} name="description" value={props.description}/>
+      <button onClick={deleteIdea}>Delete Idea</button>
     </IdeaStyles>
   )
 }

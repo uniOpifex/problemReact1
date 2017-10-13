@@ -4,6 +4,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const UsersController = require('./routes/UsersController')
+const IdeasController = require('./routes/IdeasController')
 
 mongoose.Promise = global.Promise
 // Create a new app using express
@@ -27,6 +28,7 @@ app.use(express.static(`${__dirname}/client/build`))
 app.use(bodyParser.json())
 
 app.use('/api/users', UsersController)
+app.use('/api/users/:userId/ideas', IdeasController)
 
 app.get('/', (req, res) => {
   res.sendFile(`${__dirname}/client/build/index.html`)

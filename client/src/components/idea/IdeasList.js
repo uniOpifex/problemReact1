@@ -14,7 +14,10 @@ const IdeasList = (props) => {
     <IdeasListStyles>
       {props.ideas.map((idea) => {
         return (
-          <Idea key={idea._id} title={idea.title} description={idea.description} />
+          <Idea key={idea._id} _id={idea._id} 
+            handleChange={props.handleChange} 
+            updateIdea={props.updateIdea} deleteIdea={props.deleteIdea} 
+            title={idea.title} description={idea.description} />
         )
       })}
     </IdeasListStyles>
