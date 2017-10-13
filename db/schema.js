@@ -1,6 +1,8 @@
 const mongoose = require('mongoose')
 
 const ideaSchema = mongoose.Schema({
+  // Setting a default value will allow you to store a value 
+  // when a post request sends an empty object
   title: {
     type: String,
     default: 'New Title'

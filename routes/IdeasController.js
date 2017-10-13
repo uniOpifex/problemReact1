@@ -2,14 +2,6 @@ const express = require('express')
 const router = express.Router({mergeParams: true})
 const { User, Idea } = require('../db/schema')
 
-router.get('/', async (req, res) => {
-
-})
-
-router.get('/:id', async (req, res) => {
-
-})
-
 router.post('/', async (req, res) => {
   const newIdea = new Idea()
   const user = await User.findById(req.params.userId)
