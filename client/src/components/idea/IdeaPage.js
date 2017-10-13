@@ -26,13 +26,13 @@ class IdeaPage extends Component {
     }
   }
 
+  // Get info about the user when it initially mounts 
   async componentWillMount () {
     const { userId } = this.props.match.params
     const res = await axios.get(`/api/users/${userId}`)
     this.setState({user: res.data})
   }
 
-  // TODO: Create New Idea when clicking a button
   // Create a Post for Idea
   // Create onClick that creates an empty Post
   createNewIdea = async () => {
@@ -42,7 +42,6 @@ class IdeaPage extends Component {
     this.setState({user: res.data})
   }
 
-  // TODO: Delete existing idea when clicking a button
   // Create a Delete for Idea
   // Create onClick that deletes a post
   deleteIdea = async (ideaId) => {
@@ -52,7 +51,6 @@ class IdeaPage extends Component {
     this.setState({user: res.data})
   }
 
-  // TODO: Update an idea when a user edits the field
   // Create a Patch for idea
   // Add onChange listener for title and description
   handleChange = (event, ideaId) => {

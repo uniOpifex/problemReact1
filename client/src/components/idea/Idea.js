@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 
+// You can easily nest css components in your styled-components
+// This gets converted into raw css when loaded on your page
 const IdeaStyles = styled.div`
   height: 300px;
   width: 300px;
@@ -23,6 +25,8 @@ const IdeaStyles = styled.div`
 `
 
 const Idea = (props) => {
+  // Creates a method that triggers another function being passed down 
+  // another function
   const deleteIdea = () => {
     props.deleteIdea(props._id)
   }
@@ -32,11 +36,11 @@ const Idea = (props) => {
   }
   const updateIdea = () => {
     props.updateIdea(props._id)
-    console.log('UPDATING')
   }
 
   return (
     <IdeaStyles>
+      {/* onBlur triggers whenever the user navigates off the input */}
       <input onBlur={updateIdea} onChange={handleChange} name="title" value={props.title} />
       <textarea onBlur={updateIdea} onChange={handleChange} name="description" value={props.description}/>
       <button onClick={deleteIdea}>Delete Idea</button>
