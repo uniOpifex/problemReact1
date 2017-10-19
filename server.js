@@ -36,7 +36,7 @@ app.use(bodyParser.json())
 
 // Add Controllers after Middleware
 app.use('/api/users', UsersController)
-app.use('/api/users/:userId/ideas', IdeasController)
+app.use('/api/users/:userId/cardCollection', IdeasController)
 
 // Create a index route that renders your built React app
 app.get('/', (req, res) => {

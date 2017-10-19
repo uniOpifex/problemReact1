@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import styled from 'styled-components'
-import IdeasList from './IdeasList'
+import CardList from './CardList'
 
-const IdeaTitleStyle = styled.div`
+const CardTitleStyle = styled.div`
   text-align:center;
   button {
     margin: 30px auto;
@@ -17,14 +17,12 @@ const IdeaTitleStyle = styled.div`
   }
 `
 
-class IdeaPage extends Component {
+class BuildPage extends Component {
   state={
     user: {
       userName: '',
       password: '',
-      ideas: [],
-      cards: [],
-      collection: []
+      cardCollection: []
     }
   }
 
@@ -32,47 +30,49 @@ class IdeaPage extends Component {
   async componentWillMount () {
     const { userId } = this.props.match.params
     const res = await axios.get(`/api/users/${userId}`)
+    console.log(res.data)    
     this.setState({user: res.data})
+    console.log(this.state)
   }
 
-  // Create a Post for Idea
+  // Create a Post for Card
   // Create onClick that creates an empty Post
-  createNewIdea = async () => {
+  createNewCard = async () => {
     const { userId } = this.props.match.params
-    const res = await axios.post(`/api/users/${userId}/ideas`)
+    const res = await axios.post(`/api/users/${userId}/cardCollection`)
     console.log(res.data)
     this.setState({user: res.data})
   }
 
-  // Create a Delete for Idea
+  // Create a Delete for Card
   // Create onClick that deletes a post
-  deleteIdea = async (ideaId) => {
+  deleteCard = async (cardId) => {
     const { userId } = this.props.match.params
-    const id = ideaId
-    const res = await axios.delete(`/api/users/${userId}/ideas/${id}`)
+    const id = cardId
+    const res = await axios.delete(`/api/users/${userId}/cards/${id}`)
     this.setState({user: res.data})
   }
 
-  // Create a Patch for idea
+  // Create a Patch for Card
   // Add onChange listener for title and description
-  handleChange = (event, ideaId) => {
+  handleChange = (event, cardId) => {
     const attribute = event.target.name
     const clonedUser = {...this.state.user}
-    const idea = clonedUser.ideas.find(i => i._id === ideaId)
-    console.log(idea)
-    idea[attribute] = event.target.value
+    const card = clonedUser.cards.find(i => i._id === cardId)
+    console.log(card)
+    card[attribute] = event.target.value
     this.setState({user: clonedUser})
   }
   // Trigger patch when leaving an input field
-  updateIdea = async (ideaId) => {
+  updateCard = async (cardId) => {
     const { userId } = this.props.match.params
-    const id = ideaId
+    const id = cardId
 
     const clonedUser = {...this.state.user}
-    const idea = clonedUser.ideas.find(i => i._id === ideaId)
+    const card = clonedUser.cards.find(i => i._id === cardId)
 
-    const res = await axios.patch(`/api/users/${userId}/ideas/${id}`, {
-      idea: idea
+    const res = await axios.patch(`/api/users/${userId}/cards/${id}`, {
+      card: card
     })
     this.setState({user: res.data})
   }
@@ -80,18 +80,18 @@ class IdeaPage extends Component {
   render () {
     return (
       <div>
-        <IdeaTitleStyle>
-          <h1>{this.state.user.userName}'s Idea Board</h1>
-          <button onClick={this.createNewIdea}>New Idea</button>
-        </IdeaTitleStyle>
-        <IdeasList ideas={this.state.user.ideas}
+        <CardTitleStyle>
+          <h1>{this.state.user.userName}'s Card Board</h1>
+          <button onClick={this.createNewCard}>New Card</button>
+        </CardTitleStyle>
+        <CardList Cards={this.state.user.cardCollection}
           handleChange={this.handleChange}
-          deleteIdea={this.deleteIdea}
-          updateIdea={this.updateIdea}
+          deleteCard={this.deleteCard}
+          updateCard={this.updateCard}
         />
       </div>
     )
   }
 }
 
-export default IdeaPage
+export default BuildPage

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
+import { Link,} from 'react-router-dom'
 import SignUpForm from './SignUpForm'
 
 class LogInPage extends Component {
@@ -44,7 +44,7 @@ class LogInPage extends Component {
         {this.state.users.map(user => {
           // Here we use the info for the specific instance of the loop to show username 
           // and create a link
-          return (<Link key={user._id} to={`/idea/${user._id}`}>{user.userName}</Link>)
+          return (<Link key={user._id} to={`/build/${user._id}`}>{user.userName}</Link>)
         })}
         {/* Always look for opportunities to make your components simple */}
         {/* Remember the Single Responsibility Principle! */}

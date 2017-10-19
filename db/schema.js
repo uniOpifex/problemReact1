@@ -1,25 +1,26 @@
 const mongoose = require('mongoose')
 
-const ideaSchema = mongoose.Schema({
+const cardSchema = mongoose.Schema({
   // Setting a default value will allow you to store a value 
   // when a post request sends an empty object
-  title: {
+  name: {
     type: String,
     default: 'New Title'
   },
-  description: {type: String, default: 'New Idea Description'},
+  type: {type: String, default: 'New Card'},
+  color: {type: String, default: 'New Card'},
   createdAt: {type: Date, default: Date.now}
 })
 
 const userSchema = mongoose.Schema({
   userName: String,
   password: String, // For mock log-in. Do not enter actual passwords
-  ideas: [ideaSchema]
+  cardCollection: [cardSchema]
 })
 
-const Idea = mongoose.model('Idea', ideaSchema)
+const Card = mongoose.model('Card', cardSchema)
 const User = mongoose.model('User', userSchema)
 
 module.exports = {
-  Idea, User
+  Card, User
 }

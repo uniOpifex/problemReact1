@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import { Redirect } from 'react-router-dom'
+
 
 class SignUpForm extends Component {
   state = {
@@ -7,7 +9,7 @@ class SignUpForm extends Component {
       userName: '',
       password: ''
     },
-    redirectToIdea: false,
+    redirectToBuild: false,
     newUserId: ''
   }
 
@@ -36,13 +38,13 @@ class SignUpForm extends Component {
 
     // After the post is complete, set the state to trigger the redirect
     // and add the newly created user's id to state so we can change the route
-    this.setState({redirectToIdea: true, newUserId: res.data._id})
+    this.setState({redirectToBuild: true, newUserId: res.data._id})
   }
 
   render () {
     // If statement which is triggered after a new user posts is successful 
-    if (this.state.redirectToIdea) {
-      return <Redirect to={`/idea/${this.state.newUserId}`} />
+    if (this.state.redirectToBuild) {
+      return <Redirect to={`/build/${this.state.newUserId}`} />
     }
 
     return (

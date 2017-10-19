@@ -8,7 +8,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 // Import your own components after imports from node_modules
 import HomePage from './components/home/HomePage'
-import IdeaPage from './components/idea/IdeaPage'
+import BuildPage from './components/idea/BuildPage'
 import LogInPage from './components/login/LogInPage'
 import NavBar from './components/NavBar'
 
@@ -28,7 +28,7 @@ class App extends Component {
             <Route exact path="/login" component={LogInPage} />
             {/* Adding semicolons creates a wildcard param that you can */}
             {/* access using this.props.match.params */}
-            <Route exact path="/idea/:userId" component={IdeaPage} />
+            <Route exact path="/build/:userId" component={BuildPage} />
           </Switch>
         </div>
       </Router>
